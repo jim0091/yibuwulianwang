@@ -22,7 +22,7 @@
 #define CHANPINPASSWD "duerosiotrpi"//授权信息
 
 #define QOS 1 //此标识指示发送消息的交付质量等级
-#define TIMEOUT 120  //心跳时间 以秒为单位，定义服务器端从客户端接收消息的最大时间间隔。
+#define TIMEOUT 10000L  //超时时间
 volatile MQTTClient_deliveryToken deliveredtoken; //传输代号
 
 MQTTClient client;
@@ -400,8 +400,8 @@ void connectionLost(void *context, char *cause)
 {
   printfAndWriteMyLogFun("\nConnection OneNet lost! Cause:%s\n", cause);
   //MQTTClient c = (MQTTClient)context;
-  //printf("%s -> Callback: connection lost\n", (c == test6_c1) ? "Client-1" : "Client-2");
-  MQTTClient_connect(client, &conn_opts);//直接重连，最笨最直接的办法
+  linkOneNET();
+  //MQTTClient_connect(client, &conn_opts);//直接重连，最笨最直接的办法
   //exit(0);//暂时先强退吧，后面有空把断线重连之类的代码写进去
 }
 
@@ -533,7 +533,7 @@ int linkOneNET() {
   int ch;
   MQTTClient_create(&client, ADDRESS, CLIENTID,
     MQTTCLIENT_PERSISTENCE_NONE, NULL);//创建一个MQTT客户端
-    conn_opts.keepAliveInterval = 130;//OneNET的keepalive需要120秒以上
+    conn_opts.keepAliveInterval = 130;////心跳时间 以秒为单位，定义服务器端从客户端接收消息的最大时间间隔。
     conn_opts.cleansession = 1;
     conn_opts.username = CHANPINID;//这里添加用户名参数，在OneNET上对应的是 产品ID
     conn_opts.password = CHANPINPASSWD;//这里添加密码参数，在OneNET上对应之前提到过的 鉴权信息
