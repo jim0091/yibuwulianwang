@@ -11,24 +11,7 @@
 #include <stdarg.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-
 #include "cJSON.h"
-
-void printJson(cJSON * root)//以递归的方式打印json的最内层键值对
-{
-    int i;
-    for(i=0; i<cJSON_GetArraySize(root); i++)   //遍历最外层json键值对
-    {
-        cJSON * item = cJSON_GetArrayItem(root, i);
-        if(cJSON_Object == item->type)      //如果对应键的值仍为cJSON_Object就递归调用printJson
-            printJson(item);
-        else                                //值不为json对象就直接打印出键和值
-        {
-            printf("%s->", item->string);
-            printf("%s\n", cJSON_Print(item));
-        }
-    }
-}
 
 //从字符串中截取一段字符串
 //https://www.cnblogs.com/SharkBin/p/4234016.html
@@ -51,12 +34,21 @@ char* substring(char* ch,int pos,int length)
   return subch;       //返回分配的字符数组地址。
 }
 
+char* packRoot(char* key,char* volue)
+{
+    cJSON * root =  cJSON_CreateObject();
+    cJSON_AddItemToObject(root,key, cJSON_CreateString(volue));
+    printf("%s\n", cJSON_Print(root));
+
+    return cJSON_Print(root);
+}
+
 /*对日志抓取和解析指令*/
 int Pretreatment()
 {
   FILE *file_OpenDuerOSLog=NULL;
-  char buff[5120];//定义数组来保存获得的日志内容
-  char result[5120];//定义字节组数来保存语音识别结果和DuerOS回复结果
+  char buff[10240];//定义数组来保存获得的日志内容
+  char result[10240];//定义字节组数来保存语音识别结果和DuerOS回复结果
   int strpoint;
   int j=0,i=0,y=0;
   memset(buff,0,sizeof(buff)); //清空数组
@@ -83,42 +75,25 @@ int Pretreatment()
     {
       int pos = strlen(msgHeader);
       int len = (strlen(buff)-pos);
-      printf("pos:%d,len:%d\n",pos,len);
       char* msgJSON = substring(buff,pos,len);
-      printf("%s\n",msgJSON);
       //https://www.cnblogs.com/catgatp/p/6379955.html
       cJSON * root = NULL;
       cJSON * item = NULL;//cjson对象
       root = cJSON_Parse(msgJSON);
-
       if (!root)
       {
         printf("Error before: [%s]\n",cJSON_GetErrorPtr());
       }
       else
       {
-        printf("%s\n", "有格式的方式打印Json:");
         printf("%s\n\n", cJSON_Print(root));
-        printf("%s\n", "无格式方式打印json：");
-        printf("%s\n\n", cJSON_PrintUnformatted(root));
-
-        printf("%s\n", "一步一步的获取name 键值对:");
-        printf("%s\n", "获取semantic下的cjson对象:");
         item = cJSON_GetObjectItem(root, "to_client");//
-        printf("%s\n", cJSON_Print(item));
-        printf("%s\n", "获取slots下的cjson对象");
         item = cJSON_GetObjectItem(item, "payload");
-        printf("%s\n", cJSON_Print(item));
-        printf("%s\n", "获取name下的cjson对象");
         item = cJSON_GetObjectItem(item, "text");
-        printf("%s\n", cJSON_Print(item));
-
-        printf("%s:", item->string);   //看一下cjson对象的结构体中这两个成员的意思
-        printf("%s\n", item->valuestring);
-
-
-        printf("\n%s\n", "打印json所有最内层键值对:");
-        printJson(root);
+        char* jsonKey = item->string;
+        char* jsonVolue = item->valuestring;
+        printf("%s:%s\n",jsonKey ,jsonVolue);   //看一下cjson对象的结构体中这两个成员的意思
+        printf("%s\n", packRoot(jsonKey,jsonVolue));
       }
     }
   }
