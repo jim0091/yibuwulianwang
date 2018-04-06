@@ -1,0 +1,12 @@
+#加入src中
+cjson.h
+cjson.c
+
+#Makefile中加入
+${SYNC_TESTS}: ${blddir}/test/%: ${srcdir}/../test/%.c $(MQTTLIB_C_TARGET)
+${CC} -DNOSTACKTRACE $(srcdir)/Thread.c $(srcdir)/cJSON.c -g -o $@ $< -l${MQTTLIB_C} ${FLAGS_EXE}
+
+git clone https://github.com/eclipse/paho.mqtt.c.git
+cd paho.mqtt.c
+make
+sudo make install
