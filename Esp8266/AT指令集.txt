@@ -1,0 +1,2 @@
+esp8266指令集：
+设置wifi账号和密码：AT+CWJAP="22@A532","VkhKyq8k"
