@@ -1,0 +1,38 @@
+{"topic":"test","payload":"hello","qos":1,"retain": false,"client_id":"C_1492145414740"}
+
+curl -v --basic -u admin:public -d "qos=1&retain=0&topic=yibuwulianwang&message=hello from http..." -k http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+curl -v --basic -u admin:public -d "{"topic":"test","payload":"hello","qos":1,"retain":false,"client_id":"C_1492145414740"}" -k http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+
+curl -H "Content-Type:application/json" -X POST --data '{"topic":"yibuwulianwang","payload":"hello","qos":1,"retain": false,"client_id":"C_1492145414740"}' http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+curl -H "Content-Type:application/json" -X POST --data -v --basic -u admin:public -d'{"topic":"yibuwulianwang","payload":"hello","qos":1,"retain":false,"client_id":"C_1492145414740"}' http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+curl -H "Content-Type:application/json" -X POST -v --basic -u admin:public -d '{"topic":"yibuwulianwang","payload":"hello","qos":1,"retain":false,"client_id":"C_1492145414740"}' http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+curl -H "Content-Type:application/json" -X POST -v --basic -u admin:public -d '{"topic":"yibuwulianwang","payload":"hello 一步物联网","qos":1,"retain":false,"client_id":"C_1492145414740"}' http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+curl -H "Content-Type:application/json" -X POST -v --basic -u admin:public -d '{"topic":"yibuwulianwang","payload":"hello 一步物联网","qos":1,"retain":false,"client_id":"C_1492145414740"}' http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+curl -H 'Content-Type:application/json' -X POST -v --basic -u admin:public -d '{"topic":"yibuwulianwang","payload":"hello 一步物联网","qos":1,"retain":false,"client_id":"C_1492145414740"}' http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+curl -H 'Content-Type:application/json' -X POST -v --basic -u admin:public -d '{"client_id":"C_1492145414740","payload":"hello yibuwulianwang","qos":0,"retain":false,"topic":"yibuwulianwang"}' http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+
+
+
+curl -X POST \
+  -H "X-Bmob-Application-Id: Your Application ID"          \
+  -H "X-Bmob-REST-API-Key: Your REST API Key"        \
+  -H "Content-Type: application/json" \
+  -d '{"mobilePhoneNumber": "186xxxxxxxx", "content":"您的验证码是：222222, 有效期是10分钟。"}' \
+  https://api.bmob.cn/1/requestSms
+  
+  
+curl -X POST -v --basic -u "admin:public" -H "Content-Type: application/json" -d '{"topic":"yibuwulianwang","payload":"hello一步物联网","qos":1,"retain":false,"client_id":"C_1492145414740"}' http://yibuwulianwang.com:18000/api/v2/mqtt/publish
+
+
+
+
+
