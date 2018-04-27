@@ -6,7 +6,6 @@
 //https://pubsubclient.knolleary.net/api.html#publish1
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
-#include "FS.h"
 
 #define Taideng 23
 
