@@ -1,0 +1,10 @@
+http://arduino.esp8266.com/stable/package_esp8266com_index.json
+https://github.com/esp8266/Arduino/blob/master/package.json
+https://github.com/espressif/arduino-esp32/blob/master/package.json
+https://gitee.com/dfrobot/FireBeetle-ESP32/blob/master/package_esp32_index.json
+https://git.oschina.net/dfrobot/FireBeetle-ESP32/raw/master/package_esp32_index.json
+https://raw.githubusercontent.com/chipKIT32/chipKIT-core/master/package_chipkit_index.json
+https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json
+http://download.igrr.me/stable/package_esp8266com_index.json
+http://diy.mikolex.de/package_esp8266com_index.json
+https://github.com/esp8266/Arduino/releases/download/2.3.0/package_esp8266com_index.json
